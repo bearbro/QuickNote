@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">发呆便签</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">设置</string>
+    <string name="note_privacy_and_recycle">私密便签无法直接预览，请先恢复！</string>
+
+    <string name="database_content_one">点击右上角，可以切换视图样式！</string>
+    <string name="database_content_two">长按便签，可以进行批量操作！</string>
+    <string name="database_content_three">在设置中，可以切换主题颜色！</string>
+    <string name="database_content_four">点击右下角，创建新的便签！</string>
+    <string name="database_content_five">
+        您现在使用的是该软件的第四个版本，使用中如果遇到问题，或者有什么建议,请一定要记得给我们发送反馈！\n本软件无毒无广告，功能也会在后续的开发中逐渐完善，如果您觉得好用，可以在支持一下开发者！\n开发这个软件纯粹是出于兴趣，也没有想加入广告，软件的进一步完善也需要你们的反馈和支持！\n非常感谢！
+    </string>
+
+    <string name="dev_say"></string>
+
+    <string name="about_key_to_alipay">to_alipay</string>
+    <string name="about_key_about_dev">about_dev</string>
+    <string name="about_key_to_market">to_market</string>
+    <string name="about_key_check_version">check_version</string>
+    <string name="about_key_to_feedback">to_feekback</string>
+
+    <string name="alipay_qr_code">HTTPS://QR.ALIPAY.COM/FKX02204SZGKIYYQSFPR54</string>
+    <string name="my_email">i_fadai@163.com</string>
+    <string name="github"><u>https://github.com/ifadai</u></string>
+    <string name="jian_shu"><u>http://www.jianshu.com/u/707e22330793</u></string>
+    <string name="csdn"><u>http://blog.csdn.net/ifadai</u></string>
+    <string name="app_github">本软件已开源，地址：<u>https://github.com/ifadai/SuperNote</u></string>
+    <string name="bmob_app_id"></string>
+    <string name="menu_item_statistics_text">统计</string>
+    <string name="bottom_bar_item_move">移动</string>
+    <string name="bottom_bar_item_delete">删除</string>
+    <string name="bottom_bar_item_privacy">设为私密</string>
+
+</resources>

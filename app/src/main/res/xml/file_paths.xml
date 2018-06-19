@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<patch>
+    <files-path
+        name="images"
+        path="Android/data/com.app.fadai.supernote/files/Pictures/OriPicture/"/>
+    <external-path
+        name="images"
+        path="Android/data/com.app.fadai.supernote/files/Pictures/OriPicture/"/>
+    <external-files-path
+        name="images"
+        path="files/Pictures/OriPicture"/>
+    <root-path
+        name="images"
+        path=""/>
+</patch>
