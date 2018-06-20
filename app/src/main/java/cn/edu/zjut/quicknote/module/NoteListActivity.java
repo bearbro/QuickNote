@@ -176,6 +176,7 @@ public class NoteListActivity extends AppCompatActivity {
     private void initData() {
         if (Constants.isFirst) {
             int folderId = mFragment.initDatabase();
+           // mNoteModel.initNote(folderId);
             CacheManager.setAndSaveIsFirst(false);
         }
     }

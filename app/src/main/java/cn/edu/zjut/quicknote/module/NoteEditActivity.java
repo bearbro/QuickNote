@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -24,9 +25,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.FileUtils;
@@ -41,6 +45,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -67,11 +72,31 @@ public class NoteEditActivity extends AppCompatActivity {
     private final int REQUEST_PERMISSION_TO_CAMERA = 1;    // 请求权限前往相机
     private final int REQUEST_PERMISSION_TO_PHOTO = 2;     // 请求权限前往图库
 
+    private boolean voiceChanged = false;//是否改变录音
+    private boolean taking = false;
+    private MediaPlayer mediaPlayer;
+    private VoiceService voiceService;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     @BindView(R.id.et_edit_note_content)
     MyEditText mEdContent;
+
+
+    @BindView(R.id.ll_edit_note_to_microphone)
+    LinearLayout mLlToMicrophone;
+
+    @BindView(R.id.voice_talk)
+    ImageView voiceTalk;
+
+    @BindView(R.id.ll_edit_note_player)
+    LinearLayout mLlPlayer;
+
+    @BindView(R.id.voice_player)
+    ImageView voicePlayer;
+
+    @BindView(R.id.ll_edit_note_delete_voice)
+    LinearLayout mLlDeleteVoice;
 
     @BindView(R.id.ll_edit_note_to_camera)
     LinearLayout mLlToCamera;
@@ -115,6 +140,13 @@ public class NoteEditActivity extends AppCompatActivity {
             mModifiedTime = intent.getLongExtra("modified_time", 0);
             mNoteContent = intent.getStringExtra("note_content");
             path = intent.getStringExtra("path");
+            String vpath = getExternalFilesDir(mNoteId).getPath() + "/" + mNoteId + ".mp4";
+            File f = new File(vpath);
+            if (f.exists()) {
+                mLlToMicrophone.setVisibility(View.GONE);
+                mLlDeleteVoice.setVisibility(View.VISIBLE);
+                mLlPlayer.setVisibility(View.VISIBLE);
+            }
         }
         setTitle(TimeUtils.millis2String(mModifiedTime));
     }
@@ -172,7 +204,7 @@ public class NoteEditActivity extends AppCompatActivity {
         int imageRequestWidth = getRequestImeWidth();
         int imageRequestHeight = setNeedHeight(options);
 
-System.out.println(imageFile.getPath());
+        System.out.println(imageFile.getPath());
         Glide.with(this)
                 .load(imageFile)
                 .asBitmap()
@@ -220,6 +252,104 @@ System.out.println(imageFile.getPath());
 
     public void showNoteContent(String content) {
         mEdContent.setText(content);
+    }
+
+    @OnClick(R.id.ll_edit_note_to_microphone)
+    public void checkToMicrophone() {
+        voiceChanged = true;
+        String vpath = getExternalFilesDir(mNoteId).getPath() + "/" + mNoteId + ".mp4";
+        if (taking) {//结束
+            voiceTalk.setImageDrawable(getResources().getDrawable(R.drawable.ic_phone_microphone_black));
+            taking = !taking;
+            voiceService.stopRecording();
+            mLlToMicrophone.setVisibility(View.GONE);
+            mLlDeleteVoice.setVisibility(View.VISIBLE);
+            mLlPlayer.setVisibility(View.VISIBLE);
+
+        } else {//开始
+            voiceTalk.setImageDrawable(getResources().getDrawable(R.drawable.ic_phone_microphone_red));
+            taking = !taking;
+            voiceService = new VoiceService();
+            voiceService.setmFilePath(vpath);
+            voiceService.startRecording();
+        }
+    }
+
+    @OnClick(R.id.ll_edit_note_delete_voice)
+    public void checkDeleteVoice() {
+        voiceChanged = true;
+        String vpath = getExternalFilesDir(mNoteId).getPath() + "/" + mNoteId + ".mp4";
+        File file = new File(vpath);
+        if (file.exists()) {
+            Log.d("delete", "startDelete");
+            file.delete();
+        } else {
+            Log.d("delete", "文件不存在：" + vpath);
+        }
+        mLlDeleteVoice.setVisibility(View.GONE);
+        mLlPlayer.setVisibility(View.GONE);
+        mLlToMicrophone.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.ll_edit_note_player)
+    public void checPlayVoice() {
+        // path = "/storage/emulated/0/123.mp4";
+
+        String vpath = getExternalFilesDir(mNoteId).getPath() + "/" + mNoteId + ".mp4";
+        File file = new File(vpath);
+        ///storage/emulated/0/123.mp4
+        if (file.exists()) {
+            Log.d("player", "start");
+            voicePlayer.setImageDrawable(getResources().getDrawable(R.drawable.ic_phone_playing));
+            startPlay(file);
+
+        } else {
+            Log.d("player", "文件不存在：" + vpath);
+        }
+    }
+
+
+    private void startPlay(File mFile) {
+        try {
+            //初始化播放器
+            mediaPlayer = new MediaPlayer();
+            //设置播放音频数据文件
+            mediaPlayer.setDataSource(mFile.getAbsolutePath());
+            //设置播放监听事件
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    //播放完成
+                    // playEndOrFail(true);
+                    Log.d("play", "end");
+                    voicePlayer.setImageDrawable(getResources().getDrawable(R.drawable.ic_phone_player));
+
+                }
+            });
+            //播放发生错误监听事件
+            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
+                    //  playEndOrFail(false);
+                    Log.d("error", "播放失败");
+                    voicePlayer.setImageDrawable(getResources().getDrawable(R.drawable.ic_phone_player));
+                    return true;
+                }
+            });
+            //播放器音量配置
+            mediaPlayer.setVolume(1, 1);
+            //是否循环播放
+            mediaPlayer.setLooping(false);
+            //准备及播放
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+            //播放失败正理
+            // playEndOrFail(false);
+
+        }
+
     }
 
     @OnClick(R.id.ll_edit_note_to_camera)
@@ -539,14 +669,24 @@ System.out.println(imageFile.getPath());
     public void saveNote(String content) {
         Intent intent;
         String npath = getExternalFilesDir(mNoteId).getPath();
+
+        if (voiceService != null) {
+            voiceService = null;
+        }
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            voicePlayer = null;
+        }
         // 内容改变时才保存
-        if (!mNoteContent.equals(content) || !npath.equals(path)) {
+        if (!mNoteContent.equals(content)
+                || !"".equals(content) && !npath.equals(path) || voiceChanged) {
             intent = getIntent();
             intent.putExtra("note_id", mNoteId);
             intent.putExtra("note_content", content);
             intent.putExtra("modified_time", mModifiedTime);
             intent.putExtra("position", mPosition);
-            intent.putExtra("path",npath);
+            intent.putExtra("path", npath);
             setResult(RESULT_OK, intent);
         }
     }

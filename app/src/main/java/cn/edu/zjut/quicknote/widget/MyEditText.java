@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.zjut.quicknote.bean.ImageEntity;
+import cn.edu.zjut.quicknote.bean.VoiceEntity;
 import cn.edu.zjut.quicknote.constants.EditNoteConstants;
 
 
@@ -22,9 +23,13 @@ import cn.edu.zjut.quicknote.constants.EditNoteConstants;
 public class MyEditText extends android.support.v7.widget.AppCompatEditText {
 
     // 已插入的图片
-    public List<ImageEntity> mImageList = new ArrayList<ImageEntity>();
+    public List<ImageEntity> mImageList = new ArrayList<>();
     // 已删除的图片 在保存便签时应从储存中删除
     public List<ImageEntity> mDeleteImageList = new ArrayList<>();
+    // 已插入的音频
+    public List<VoiceEntity> mVoiceList = new ArrayList<>();
+    // 已删除的音频在保存便签时应从储存中删除
+    public List<VoiceEntity> mDeleteVoiceList = new ArrayList<>();
 
     private Editable mEditable = getEditableText();
 
@@ -65,7 +70,9 @@ public class MyEditText extends android.support.v7.widget.AppCompatEditText {
     private String getImageFlag(String imageName) {
         return EditNoteConstants.imageTabBefore + imageName + EditNoteConstants.imageTabAfter;
     }
-
+    private String getVoiceFlag(String voiceName) {
+        return EditNoteConstants.voiceTabBefore + voiceName + EditNoteConstants.voiceTabAfter;
+    }
     /**
      * 插入图片到光标处
      */

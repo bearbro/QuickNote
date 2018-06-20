@@ -25,7 +25,7 @@ public class NoteFolderModel {
 
         NoteFolder folder1 = new NoteFolder();
         folder1.setFolderName("随手记");
-        folder1.setNoteCount(5);
+        folder1.setNoteCount(0);//todo
         folder1.save();
 
         NoteFolder noteFolder2 = new NoteFolder();

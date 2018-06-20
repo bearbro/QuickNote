@@ -20,6 +20,9 @@ public class EditNoteConstants {
     public static String imageTabBefore="<image>";
     public static String imageTabAfter="</image>";
 
+    public static String voiceTabBefore="<voice>";
+    public static String voiceTabAfter="</voice>";
+
     // 图片距离左右的总距离
     public static float imageMargin= SizeUtils.dp2px(32);
 

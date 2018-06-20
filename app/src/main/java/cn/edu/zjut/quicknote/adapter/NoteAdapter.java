@@ -99,6 +99,7 @@ public class NoteAdapter extends BaseQuickAdapter<Note, BaseViewHolder> {
         while (m.find()) {
             String temp = m.group(1);
             int index = content.indexOf(EditNoteConstants.imageTabBefore, tempIndex);
+            images.add(temp);//todo 添加图片
             String text = content.substring(tempIndex, index);
             textList.add(text);
             int flagLength = EditNoteConstants.imageTabBefore.length() + EditNoteConstants.imageTabAfter.length();
@@ -108,13 +109,16 @@ public class NoteAdapter extends BaseQuickAdapter<Note, BaseViewHolder> {
         if (textList.size() != 0) {
             for (int i = 0; i < textList.size(); i++) {
                 textView.append(textList.get(i));
-                textView.append("[图片]");
+                // textView.append("[图片]");
             }
             textView.append(content.substring(tempIndex));
         } else {
             textView.setText(content);
         }
-
+        String s = textView.getText().toString();
+        if(s!=null&&s.length()>0&&s.charAt(0)=='\n'){
+            textView.setText(s.substring(1));
+        }
         if (images.size() > 0)
             return images.get(0);
         else return null;
