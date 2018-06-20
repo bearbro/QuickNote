@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by miaoyongyong on 2016/12/5.
- */
 
 public class MySqliteDBConnect extends SQLiteOpenHelper {
     private String CREATE_NOTE="create table Note("

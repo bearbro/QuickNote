@@ -6,15 +6,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import cn.edu.zjut.quicknote.R;
 import cn.edu.zjut.quicknote.bean.NoteFolder;
 
-/**
- * <pre>
- *     author : FaDai
- *     e-mail : i_fadai@163.com
- *     time   : 2017/06/27
- *     desc   : xxxx描述
- *     version: 1.0
- * </pre>
- */
+
 
 public class NoteBottomSheetFolderAdapter extends BaseQuickAdapter<NoteFolder, BaseViewHolder> {
 

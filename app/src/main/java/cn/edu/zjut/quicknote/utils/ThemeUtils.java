@@ -16,15 +16,6 @@ import java.lang.reflect.Field;
 
 import cn.edu.zjut.quicknote.R;
 
-/**
- * <pre>
- *     author : FaDai
- *     e-mail : i_fadai@163.com
- *     time   : 2017/06/20
- *     desc   : xxxx描述
- *     version: 1.0
- * </pre>
- */
 
 public class ThemeUtils {
 

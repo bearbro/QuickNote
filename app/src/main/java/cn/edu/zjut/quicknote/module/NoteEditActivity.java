@@ -277,7 +277,11 @@ public class NoteEditActivity extends AppCompatActivity {
 
     @OnClick(R.id.ll_edit_note_delete_voice)
     public void checkDeleteVoice() {
-        voiceChanged = true;
+        if (mIsNew) {
+            voiceChanged = false;
+        } else {
+            voiceChanged = true;
+        }
         String vpath = getExternalFilesDir(mNoteId).getPath() + "/" + mNoteId + ".mp4";
         File file = new File(vpath);
         if (file.exists()) {

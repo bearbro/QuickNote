@@ -3,15 +3,6 @@ package cn.edu.zjut.quicknote.utils;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-/**
- * <pre>
- *     author : FaDai
- *     e-mail : i_fadai@163.com
- *     time   : 2017/07/07
- *     desc   : xxxx描述
- *     version: 1.0
- * </pre>
- */
 
 public class ProgressDialogUtils {
 

@@ -5,10 +5,6 @@ import android.graphics.drawable.GradientDrawable;
 import com.blankj.utilcode.util.SizeUtils;
 
 
-/**
- * Created by miaoyongyong on 2017/2/23.
- */
-
 public class MyDrawable {
 
 //    便签夹 图标 的样式

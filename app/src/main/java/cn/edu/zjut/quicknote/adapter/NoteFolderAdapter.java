@@ -13,15 +13,7 @@ import cn.edu.zjut.quicknote.constants.Constants;
 import cn.edu.zjut.quicknote.utils.ThemeUtils;
 import cn.edu.zjut.quicknote.widget.MyDrawable;
 
-/**
- * <pre>
- *     author : FaDai
- *     e-mail : i_fadai@163.com
- *     time   : 2017/06/02
- *     desc   : xxxx描述
- *     version: 1.0
- * </pre>
- */
+
 
 public class NoteFolderAdapter extends BaseQuickAdapter<NoteFolder, BaseViewHolder> {
 

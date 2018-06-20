@@ -14,8 +14,6 @@ import java.util.TimerTask;
 
 /**
  * 录音的 Service
- * <p>
- * Created by developerHaoz on 2017/8/12.
  */
 
 public class VoiceService extends Service {

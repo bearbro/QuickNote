@@ -2,9 +2,7 @@ package cn.edu.zjut.quicknote.bean;
 
 import org.litepal.crud.DataSupport;
 
-/**
- * Created by miaoyongyong on 2017/1/4.
- */
+
 
 public class NoteFolder extends DataSupport {
     private int id;

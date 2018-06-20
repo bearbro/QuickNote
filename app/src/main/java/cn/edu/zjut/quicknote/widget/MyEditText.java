@@ -16,9 +16,6 @@ import cn.edu.zjut.quicknote.bean.VoiceEntity;
 import cn.edu.zjut.quicknote.constants.EditNoteConstants;
 
 
-/**
- * Created by miaoyongyong on 2017/2/8.
- */
 
 public class MyEditText extends android.support.v7.widget.AppCompatEditText {
 
