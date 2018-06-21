@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">发呆便签</string>
+    <string name="app_name">备忘录</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -11,9 +11,7 @@
     <string name="database_content_two">长按便签，可以进行批量操作！</string>
     <string name="database_content_three">在设置中，可以切换主题颜色！</string>
     <string name="database_content_four">点击右下角，创建新的便签！</string>
-    <string name="database_content_five">
-        您现在使用的是该软件的第四个版本，使用中如果遇到问题，或者有什么建议,请一定要记得给我们发送反馈！\n本软件无毒无广告，功能也会在后续的开发中逐渐完善，如果您觉得好用，可以在支持一下开发者！\n开发这个软件纯粹是出于兴趣，也没有想加入广告，软件的进一步完善也需要你们的反馈和支持！\n非常感谢！
-    </string>
+
 
     <string name="dev_say"></string>
 

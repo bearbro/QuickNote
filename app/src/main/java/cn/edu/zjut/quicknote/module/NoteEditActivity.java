@@ -69,6 +69,7 @@ public class NoteEditActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_TO_IMAGE_INFO = 3;
 
     private final String PERMISSION_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private final String PERMISSION_RECORD = Manifest.permission.RECORD_AUDIO;
     private final int REQUEST_PERMISSION_TO_CAMERA = 1;    // 请求权限前往相机
     private final int REQUEST_PERMISSION_TO_PHOTO = 2;     // 请求权限前往图库
 
@@ -256,6 +257,32 @@ public class NoteEditActivity extends AppCompatActivity {
 
     @OnClick(R.id.ll_edit_note_to_microphone)
     public void checkToMicrophone() {
+        PermissionUtils.checkPermission(this, PERMISSION_RECORD, new PermissionUtils.PermissionCheckCallBack() {
+            @Override
+            public void onHasPermission() {
+                starMicrophone();
+                Log.d("starMicrophone","onHasPermission");
+            }
+
+            @Override
+            public void onUserHasAlreadyTurnedDown(String... permission) {// 用户之前已拒绝过权限申请
+                PermissionUtils.requestPermission(NoteEditActivity.this, permission[0], 4);
+                starMicrophone();
+                Log.d("starMicrophone","onUserHasAlreadyTurnedDown");
+            }
+
+            @Override
+            public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {  // 用户之前已拒绝并勾选了不在询问、用户第一次申请权限。
+                PermissionUtils.requestPermission(NoteEditActivity.this, permission[0], 4);
+               // starMicrophone();
+                Log.d("starMicrophone","onUserHasAlreadyTurnedDown");
+            }
+        });
+
+
+    }
+
+    private void starMicrophone(){
         voiceChanged = true;
         String vpath = getExternalFilesDir(mNoteId).getPath() + "/" + mNoteId + ".mp4";
         if (taking) {//结束
@@ -274,7 +301,6 @@ public class NoteEditActivity extends AppCompatActivity {
             voiceService.startRecording();
         }
     }
-
     @OnClick(R.id.ll_edit_note_delete_voice)
     public void checkDeleteVoice() {
         if (mIsNew) {
